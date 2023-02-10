@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
-console.log(import.meta.env.VITE_API_BASE_URL);
 
 export default function useFetch(url) {
-  const [data, setDate] = useState(null);
+  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +13,7 @@ export default function useFetch(url) {
         const response = await fetch(baseUrl + url);
         if (response.ok) {
           const json = await response.json();
-          setDate(json);
+          setData(json);
         } else {
           throw response;
         }

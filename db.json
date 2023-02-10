@@ -1,15 +1,13 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "Learn React",
-      "description": "Props, State, Hooks, ...",
+      "id": "c47b7faa-2e3d-4d02-a2cb-4f68704b8578",
+      "description": "Learn React",
       "completed": "false"
     },
     {
-      "id": 2,
-      "title": "Learn TypeScript",
-      "description": "Types, Interfaces, Classes, ...",
+      "id": "f9cdca3f-6828-4c82-a899-290d7ae0f891",
+      "description": "Learn TypeScript",
       "completed": "false"
     }
   ]
