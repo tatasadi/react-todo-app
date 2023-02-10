@@ -1,4 +1,4 @@
-export interface Todo {
+export interface TodoModel {
   id: string;
   description: string;
   completed: boolean;

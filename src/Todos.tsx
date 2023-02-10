@@ -2,8 +2,9 @@ import Spinner from "./components/Spinner";
 import { PlusIcon as PlusIconMini } from "@heroicons/react/20/solid";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { getTodos, addTodo } from "./services/todosService";
-import { Todo } from "./models/Todo";
+import { getTodos, addTodo, updateTodo } from "./services/todosService";
+import { TodoModel } from "./models/TodoModel";
+import Todo from "./Todo";
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
@@ -28,48 +29,35 @@ export default function Todos() {
 
   if (error) throw error;
 
-  function renderTodo(todo: Todo) {
-    return (
-      <div key={todo.id} className="divide-y divide-gray-200 border-b">
-        <div className="relative flex items-start py-4">
-          <div className="min-w-0 flex-1 text-sm">
-            <label
-              htmlFor={`todo-${todo.id}`}
-              className="font-medium text-gray-700"
-            >
-              {todo.description}
-            </label>
-          </div>
-          <div className="ml-3 flex h-5 items-center">
-            <input
-              id={`todo-${todo.id}`}
-              aria-describedby={`todo-${todo.id}-description`}
-              name={`todo-${todo.id}`}
-              type="checkbox"
-              className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   async function handleAddClick() {
     setAdding(true);
-    const newTodo: Todo = {
+    const newTodo: TodoModel = {
       id: uuidv4(),
       description: newTodoDescription,
       completed: false,
     };
     try {
-      const response = await addTodo(newTodo);
-      setTodos(response);
+      await addTodo(newTodo);
     } catch (e) {
       setError(e);
     } finally {
       setNewTodoDescription("");
       setTodos([...todos, newTodo]);
       setAdding(false);
+    }
+  }
+
+  async function handleTodoClick(todo: TodoModel) {
+    const updatedTodo: TodoModel = {
+      ...todo,
+      completed: !todo.completed,
+    };
+    try {
+      await updateTodo(updatedTodo);
+    } catch (e) {
+      setError(e);
+    } finally {
+      setTodos(todos.map((t) => (t.id === todo.id ? updatedTodo : t)));
     }
   }
 
@@ -82,11 +70,13 @@ export default function Todos() {
           <h2 className="border-b border-gray-300 pb-2 mb-1">ToDo List</h2>
           <fieldset>
             <legend className="sr-only">Notifications</legend>
-            {todos.map(renderTodo)}
+            {todos.map((t: TodoModel) => (
+              <Todo key={t.id} todo={t} handleTodoClick={handleTodoClick} />
+            ))}
           </fieldset>
           <div className="py-4 flex gap-4">
             <label htmlFor="newTodo" className="sr-only">
-              Email
+              New ToDo
             </label>
             <input
               type="text"
