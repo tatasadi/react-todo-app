@@ -16,3 +16,5 @@ This project is built with [Vitejs](https://vitejs.dev/) and [Tailwind](https://
 Screenshot of the app:
 
 ![Screenshot](screenshot.png)
+
+See the [online Demo](https://todo-app.tatasadi.com) of frontend without api calls.
