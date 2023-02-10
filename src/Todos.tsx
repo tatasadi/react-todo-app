@@ -13,10 +13,11 @@ import Todo from "./Todo";
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [newTodoDescription, setNewTodoDescription] = useState("");
+  const [error, setError] = useState(null);
   const [adding, setAdding] = useState(false);
+  const [newTodoDescription, setNewTodoDescription] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     async function init() {
@@ -69,12 +70,14 @@ export default function Todos() {
   }
 
   async function handleDelete(todo: TodoModel) {
+    setDeleting(true);
     try {
       await deleteTodo(todo);
     } catch (e) {
       setError(e);
     } finally {
       setTodos(todos.filter((t: TodoModel) => t.id !== todo.id));
+      setDeleting(false);
     }
   }
 
@@ -93,6 +96,7 @@ export default function Todos() {
                 todo={t}
                 toggleCompleted={toggleCompleted}
                 deleteTodo={handleDelete}
+                deleting={deleting}
               />
             ))}
           </fieldset>
