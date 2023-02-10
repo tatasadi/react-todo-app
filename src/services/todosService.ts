@@ -1,4 +1,4 @@
-import { Todo } from "../models/TodoModel";
+import { TodoModel } from "../models/TodoModel";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -8,7 +8,7 @@ export async function getTodos() {
   throw response;
 }
 
-export async function addTodo(todo: Todo) {
+export async function addTodo(todo: TodoModel) {
   const response = await fetch(baseUrl + "todos", {
     method: "POST",
     headers: {
@@ -20,7 +20,7 @@ export async function addTodo(todo: Todo) {
   throw response;
 }
 
-export async function updateTodo(todo: Todo) {
+export async function updateTodo(todo: TodoModel) {
   const response = await fetch(`${baseUrl}todos/${todo.id}`, {
     method: "PUT",
     headers: {
@@ -32,7 +32,7 @@ export async function updateTodo(todo: Todo) {
   throw response;
 }
 
-export async function deleteTodo(todo: Todo) {
+export async function deleteTodo(todo: TodoModel) {
   const response = await fetch(`${baseUrl}todos/${todo.id}`, {
     method: "DELETE",
   });
