@@ -12,3 +12,7 @@ npm start
 ```
 
 This project is built with [Vitejs](https://vitejs.dev/) and [Tailwind](https://tailwindcss.com/).
+
+Screenshot of the app:
+
+![Screenshot](screenshot.png)
