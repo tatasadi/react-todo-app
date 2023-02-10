@@ -6,9 +6,14 @@
       "completed": true
     },
     {
-      "id": "f9cdca3f-6828-4c82-a899-290d7ae0f891",
-      "description": "Learn TypeScript",
+      "id": "7ff11981-47da-42d6-9b93-7e74e91f1d02",
+      "description": "Finish ToDo App Project",
       "completed": true
+    },
+    {
+      "id": "35ff035c-7747-480f-962f-b70247aebb82",
+      "description": "Go Shopping",
+      "completed": false
     }
   ]
 }
