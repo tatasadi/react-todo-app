@@ -27,7 +27,7 @@ export default function Todos() {
               aria-describedby={`todo-${todo.id}-description`}
               name={`todo-${todo.id}`}
               type="checkbox"
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
           </div>
         </div>
