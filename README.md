@@ -17,4 +17,4 @@ Screenshot of the app:
 
 ![Screenshot](screenshot.png)
 
-See the [online Demo](https://todo-app.tatasadi.com) of frontend without api calls.
+See the [online Demo](https://todo-app.tatasadi.com) of the frontend without api calls.
