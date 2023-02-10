@@ -1,8 +1,13 @@
 import Spinner from "./components/Spinner";
-import { PlusIcon as PlusIconMini } from "@heroicons/react/20/solid";
+import { PlusIcon } from "@heroicons/react/20/solid";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { getTodos, addTodo, updateTodo } from "./services/todosService";
+import {
+  getTodos,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+} from "./services/todosService";
 import { TodoModel } from "./models/TodoModel";
 import Todo from "./Todo";
 
@@ -29,7 +34,7 @@ export default function Todos() {
 
   if (error) throw error;
 
-  async function handleAddClick() {
+  async function handleAdd() {
     setAdding(true);
     const newTodo: TodoModel = {
       id: uuidv4(),
@@ -47,7 +52,7 @@ export default function Todos() {
     }
   }
 
-  async function handleTodoClick(todo: TodoModel) {
+  async function toggleCompleted(todo: TodoModel) {
     const updatedTodo: TodoModel = {
       ...todo,
       completed: !todo.completed,
@@ -57,7 +62,19 @@ export default function Todos() {
     } catch (e) {
       setError(e);
     } finally {
-      setTodos(todos.map((t) => (t.id === todo.id ? updatedTodo : t)));
+      setTodos(
+        todos.map((t: TodoModel) => (t.id === todo.id ? updatedTodo : t))
+      );
+    }
+  }
+
+  async function handleDelete(todo: TodoModel) {
+    try {
+      await deleteTodo(todo);
+    } catch (e) {
+      setError(e);
+    } finally {
+      setTodos(todos.filter((t: TodoModel) => t.id !== todo.id));
     }
   }
 
@@ -66,12 +83,17 @@ export default function Todos() {
       {loading ? (
         <Spinner />
       ) : (
-        <section className="bg-white rounded-lg m-10 shadow p-10">
+        <section className="bg-white rounded-lg m-6 shadow p-10 max-w-screen-lg lg:mx-auto">
           <h2 className="border-b border-gray-300 pb-2 mb-1">ToDo List</h2>
           <fieldset>
             <legend className="sr-only">Notifications</legend>
             {todos.map((t: TodoModel) => (
-              <Todo key={t.id} todo={t} handleTodoClick={handleTodoClick} />
+              <Todo
+                key={t.id}
+                todo={t}
+                toggleCompleted={toggleCompleted}
+                deleteTodo={handleDelete}
+              />
             ))}
           </fieldset>
           <div className="py-4 flex gap-4">
@@ -93,10 +115,10 @@ export default function Todos() {
               className="ml-auto inline-flex items-center rounded-full border border-transparent bg-primary-600 p-2 text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:hover:cursor-not-allowed"
               disabled={adding}
             >
-              <PlusIconMini
+              <PlusIcon
                 className="h-5 w-5"
                 aria-hidden="true"
-                onClick={handleAddClick}
+                onClick={handleAdd}
               />
             </button>
           </div>

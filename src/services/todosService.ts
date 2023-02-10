@@ -31,3 +31,11 @@ export async function updateTodo(todo: Todo) {
   if (response.ok) return response.json();
   throw response;
 }
+
+export async function deleteTodo(todo: Todo) {
+  const response = await fetch(`${baseUrl}todos/${todo.id}`, {
+    method: "DELETE",
+  });
+  if (response.ok) return response.json();
+  throw response;
+}

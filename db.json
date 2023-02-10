@@ -9,11 +9,6 @@
       "id": "f9cdca3f-6828-4c82-a899-290d7ae0f891",
       "description": "Learn TypeScript",
       "completed": true
-    },
-    {
-      "id": "d09c094e-090e-4211-b267-eecab70f7018",
-      "description": "Learn Tailwind",
-      "completed": false
     }
   ]
 }

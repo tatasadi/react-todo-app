@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { classNames } from "./utils";
+import { TrashIcon } from "@heroicons/react/20/solid";
 
-export default function Todo({ todo, handleTodoClick }) {
+export default function Todo({ todo, toggleCompleted, deleteTodo }) {
   const [completed, setCompleted] = useState(todo.completed);
 
   function handleUnchange() {
     setCompleted((prevCompleted) => !prevCompleted);
-    handleTodoClick(todo);
+    toggleCompleted(todo);
   }
 
   return (
@@ -34,6 +35,16 @@ export default function Todo({ todo, handleTodoClick }) {
             onChange={handleUnchange}
           />
         </div>
+        <button
+          type="button"
+          className="ml-3 inline-flex items-centerp-2 text-red-600 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:hover:cursor-not-allowed"
+        >
+          <TrashIcon
+            className="h-5 w-5"
+            aria-hidden="true"
+            onClick={() => deleteTodo(todo)}
+          />
+        </button>
       </div>
     </div>
   );
