@@ -12,7 +12,8 @@ import { TodoModel } from "./models/TodoModel";
 import Todo from "./Todo";
 
 export default function Todos() {
-  const [todos, setTodos] = useState([]);
+  const initailTodos: TodoModel[] = [];
+  const [todos, setTodos] = useState(initailTodos);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [adding, setAdding] = useState(false);
@@ -24,7 +25,7 @@ export default function Todos() {
       try {
         const response = await getTodos();
         setTodos(response);
-      } catch (e) {
+      } catch (e: any) {
         setError(e);
       } finally {
         setLoading(false);
@@ -44,7 +45,7 @@ export default function Todos() {
     };
     try {
       await addTodo(newTodo);
-    } catch (e) {
+    } catch (e: any) {
       setError(e);
     } finally {
       setNewTodoDescription("");
@@ -60,7 +61,7 @@ export default function Todos() {
     };
     try {
       await updateTodo(updatedTodo);
-    } catch (e) {
+    } catch (e: any) {
       setError(e);
     } finally {
       setTodos(
@@ -73,7 +74,7 @@ export default function Todos() {
     setDeleting(true);
     try {
       await deleteTodo(todo);
-    } catch (e) {
+    } catch (e: any) {
       setError(e);
     } finally {
       setTodos(todos.filter((t: TodoModel) => t.id !== todo.id));
