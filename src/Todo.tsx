@@ -2,7 +2,7 @@ import { useState } from "react";
 import { classNames } from "./utils";
 import { TrashIcon } from "@heroicons/react/20/solid";
 
-export default function Todo({ todo, toggleCompleted, deleteTodo, deleting }) {
+export default function Todo({ todo, toggleCompleted, deleteTodo }) {
   const [completed, setCompleted] = useState(todo.completed);
 
   function handleUnchange() {
@@ -38,7 +38,6 @@ export default function Todo({ todo, toggleCompleted, deleteTodo, deleting }) {
         <button
           type="button"
           className="ml-3 inline-flex items-centerp-2 text-red-600 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:text-gray-300 disabled:hover:cursor-not-allowed"
-          disabled={deleting}
         >
           <TrashIcon
             className="h-5 w-5"
